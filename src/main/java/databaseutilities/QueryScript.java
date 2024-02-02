@@ -54,7 +54,7 @@ public class QueryScript {
                     throw new RuntimeException(e);
                 }
             }
-            System.out.println("The product line exists in the database");
+            System.out.println("The product line exists in the database.");
             System.out.println("Total number of products in this product line is: " + count);
 
         }
@@ -96,8 +96,6 @@ public class QueryScript {
                 throw new RuntimeException(e);
             }
 
-            int count = 0;
-            String name = null;
             while (true) {
 
                 try {
@@ -110,22 +108,21 @@ public class QueryScript {
 
                 try {
                     String productCode = cachedRowSet.getString("productCode");
-                    name = cachedRowSet.getString("productName");
+                    String name = cachedRowSet.getString("productName");
                     String productLine = cachedRowSet.getString("productLine");
                     String productDescription = cachedRowSet.getString("productDescription");
                     int quantityInStock = cachedRowSet.getInt("quantityInStock");
                     double price = cachedRowSet.getDouble("buyPrice");
 
+                    System.out.println("The product exists in the database. Product details: ");
                     System.out.printf(" Product_Code: %s \n Product_Name: %s \n Product_Line: %s \n Product_Description: %s \n Quantity: %d \n Price: %.2f \n",
                             productCode, name, productLine, productDescription, quantityInStock, price);
-                    count = cachedRowSet.getRow();
+
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
             }
 
-            if (count >= 1 && name.equalsIgnoreCase(productName))
-                System.out.println("Product exists in the database.");
         }
 
 
