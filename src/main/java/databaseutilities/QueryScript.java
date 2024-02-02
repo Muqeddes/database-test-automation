@@ -8,7 +8,7 @@ public class QueryScript {
     public void geProductLine(String productLineName, Connection connection) {
         //Get products line
 
-        Statement statement = null;
+        Statement statement;
         ResultSet resultSet;
         CachedRowSet cachedRowSet;
 
@@ -54,17 +54,18 @@ public class QueryScript {
                     throw new RuntimeException(e);
                 }
             }
+            System.out.println("The product line exists in the database");
             System.out.println("Total number of products in this product line is: " + count);
 
         }
 
     }
 
-    public boolean getProduct(String productName, Connection connection) {
-        boolean isProductExist = false;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        CachedRowSet cachedRowSet = null;
+    public void getProduct(String productName, Connection connection) {
+
+        Statement statement;
+        ResultSet resultSet;
+        CachedRowSet cachedRowSet;
 
         try {
             cachedRowSet = RowSetProvider.newFactory().createCachedRowSet();
@@ -115,7 +116,7 @@ public class QueryScript {
                     int quantityInStock = cachedRowSet.getInt("quantityInStock");
                     double price = cachedRowSet.getDouble("buyPrice");
 
-                    System.out.printf(" Product_Code= %s \n Product_Name= %s \n Product_Line= %s \n Product_Description= %s \n Quantity= %d \n Price= %.2f \n",
+                    System.out.printf(" Product_Code: %s \n Product_Name: %s \n Product_Line: %s \n Product_Description: %s \n Quantity: %d \n Price: %.2f \n",
                             productCode, name, productLine, productDescription, quantityInStock, price);
                     count = cachedRowSet.getRow();
                 } catch (SQLException e) {
@@ -124,10 +125,10 @@ public class QueryScript {
             }
 
             if (count >= 1 && name.equalsIgnoreCase(productName))
-                isProductExist = true;
+                System.out.println("Product exists in the database.");
         }
 
-        return isProductExist;
+
     }
 }
 

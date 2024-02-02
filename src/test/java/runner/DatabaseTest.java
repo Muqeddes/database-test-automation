@@ -13,12 +13,11 @@ import java.sql.Connection;
 public class DatabaseTest extends ConnectionManager {
     Connection connection=null;
     QueryScript queryScript;
-    ApplicationConfig applicationConfig;
+
    @BeforeClass
     public void setup(){
        connection= connectToDatabase();
        queryScript=new QueryScript();
-
 
     }
 
@@ -31,7 +30,7 @@ public class DatabaseTest extends ConnectionManager {
 
     @Test
     public void getProductTest(){
-       queryScript.getProduct("The Queen Mary",connection);
+       queryScript.getProduct(ApplicationConfig.readFromConfig("ProductName"),connection);
     }
 
 
